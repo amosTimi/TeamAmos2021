@@ -1,0 +1,167 @@
+Otopxy@gmail.com:~/environment/AmosAgbetile/TeamAmos2021 $ psql -h traineedb.cgq0reqixqsd.us-east-1.rds.amazonaws.com -d postgres -U traineeUser
+Password for user traineeUser: 
+psql (10.15 (Ubuntu 10.15-0ubuntu0.18.04.1), server 12.4)
+WARNING: psql major version 10, server major version 12.
+         Some psql features might not work.
+SSL connection (protocol: TLSv1.2, cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256, compression: off)
+Type "help" for help.
+
+postgres=> \dt
+                    List of relations
+ Schema |           Name           | Type  |    Owner    
+--------+--------------------------+-------+-------------
+ public | teamalexander2021        | table | traineeUser
+ public | teamamos2021             | table | traineeUser
+ public | teambright2021           | table | traineeUser
+ public | teamchukwuemeka2021      | table | traineeUser
+ public | teameleyowo2021          | table | traineeUser
+ public | teamemmanuelokunade2021  | table | traineeUser
+ public | teamezinne2021           | table | traineeUser
+ public | teamjanet2021            | table | traineeUser
+ public | teamjanetjohn2021        | table | traineeUser
+ public | teammanifest2022         | table | traineeUser
+ public | teamodinaka2021          | table | traineeUser
+ public | teamoludare2021          | table | traineeUser
+ public | teamoluwapelumialake2021 | table | traineeUser
+ public | teamomolola2021          | table | traineeUser
+ public | teamrobert2021           | table | traineeUser
+ public | teamsalvador2021         | table | traineeUser
+ public | teamsalvadorlekan2021    | table | traineeUser
+ public | teamtemitope2021         | table | traineeUser
+ public | teamtheresande2021       | table | traineeUser
+ public | teamvictor2021           | table | traineeUser
+ public | teamyusuf2021            | table | traineeUser
+(21 rows)
+
+postgres=> select * teamamos2021
+postgres-> select * from teamamos2021;
+ERROR:  syntax error at or near "teamamos2021"
+LINE 1: select * teamamos2021
+                 ^
+postgres=> SELECT * FROM TeamAmos2021;
+ id | name  | age | department  | role |  status   | createed_dt 
+----+-------+-----+-------------+------+-----------+-------------
+  1 | SARAH |   5 | Accounting  | PM   | Activated | 2020-01-01
+  2 | TIM   |  10 | Engineering | QA   | Pending   | 2020-02-01
+  3 | JOE   |  17 | Management  | PM   | Activated | 2020-02-01
+  4 | TOLU  |  25 | Management  | Dev  | Pending   | 2020-02-01
+  5 | ROB   |   5 | Engineering | QA   | Activated | 2020-03-01
+  6 | ADE   |  10 | Management  | QA   | Pending   | 2020-04-01
+  7 | TOM   |  17 | Security    | QA   | Activated | 2020-05-01
+  8 | Jide  |  26 | Accounting  | Dev  | Activated | 2021-06-01
+(8 rows)
+
+postgres=> SELECT COUNT (ID) FROM TeamAmos2021;
+ count 
+-------
+     8
+(1 row)
+
+postgres=> SELECT COUNT(department) FROM TeamAmos2021 WHERE department = "Accounting";
+ERROR:  column "Accounting" does not exist
+LINE 1: ...(department) FROM TeamAmos2021 WHERE department = "Accountin...
+                                                             ^
+postgres=> SELECT COUNT(department) FROM TeamAmos2021 WHERE department = 'Security';
+ count 
+-------
+     1
+(1 row)
+
+postgres=> SELECT COUNT(department) FROM TeamAmos2021 WHERE department = 'Accounting';
+ count 
+-------
+     2
+(1 row)
+
+postgres=> SELECT COUNT (status) FROM TeamAmos2021 WHERE status = 'Pending';
+ count 
+-------
+     3
+(1 row)
+
+postgres=> SELECT * FROM TeamAmos2021 LIMIT 5;
+ id | name  | age | department  | role |  status   | createed_dt 
+----+-------+-----+-------------+------+-----------+-------------
+  1 | SARAH |   5 | Accounting  | PM   | Activated | 2020-01-01
+  2 | TIM   |  10 | Engineering | QA   | Pending   | 2020-02-01
+  3 | JOE   |  17 | Management  | PM   | Activated | 2020-02-01
+  4 | TOLU  |  25 | Management  | Dev  | Pending   | 2020-02-01
+  5 | ROB   |   5 | Engineering | QA   | Activated | 2020-03-01
+(5 rows)
+
+postgres=> SELECT * FROM TeamAmos2021 WHERE age > 18 AND age < 26;
+ id | name | age | department | role | status  | createed_dt 
+----+------+-----+------------+------+---------+-------------
+  4 | TOLU |  25 | Management | Dev  | Pending | 2020-02-01
+(1 row)
+
+postgres=> SELECT * FROM TeamAmos2021 WHERE createed_dt = '02-01-2021';
+ id | name | age | department | role | status | createed_dt 
+----+------+-----+------------+------+--------+-------------
+(0 rows)
+
+postgres=> SELECT * FROM TeamAmos2021 WHERE createed_dt = '02-01-2020';                         
+ id | name | age | department  | role |  status   | createed_dt 
+----+------+-----+-------------+------+-----------+-------------
+  2 | TIM  |  10 | Engineering | QA   | Pending   | 2020-02-01
+  3 | JOE  |  17 | Management  | PM   | Activated | 2020-02-01
+  4 | TOLU |  25 | Management  | Dev  | Pending   | 2020-02-01
+(3 rows)
+
+postgres=> SELECT * FROM Products WHERE createed_dt = '04-01-2020' OR createed_dt = '05-01-2020'OR createed_dt = '06-01-2020';
+ERROR:  relation "products" does not exist
+LINE 1: SELECT * FROM Products WHERE createed_dt = '04-01-2020' OR c...
+                      ^
+postgres=> SELECT * FROM TeamAmos2021  WHERE createed_dt = '04-01-2020' OR createed_dt = '05-01-2020'OR createed_dt = '06-01-2020';                                                             
+ id | name | age | department | role |  status   | createed_dt 
+----+------+-----+------------+------+-----------+-------------
+  6 | ADE  |  10 | Management | QA   | Pending   | 2020-04-01
+  7 | TOM  |  17 | Security   | QA   | Activated | 2020-05-01
+(2 rows)
+
+postgres=> UPDATE TeamAmos2021 SET status'Activated';
+ERROR:  syntax error at or near "'Activated'"
+LINE 1: UPDATE TeamAmos2021 SET status'Activated';
+                                      ^
+postgres=> UPDATE TeamAmos2021 SET status='Activated';
+UPDATE 8
+postgres=> select * from teamamos2021;
+ id | name  | age | department  | role |  status   | createed_dt 
+----+-------+-----+-------------+------+-----------+-------------
+  1 | SARAH |   5 | Accounting  | PM   | Activated | 2020-01-01
+  2 | TIM   |  10 | Engineering | QA   | Activated | 2020-02-01
+  3 | JOE   |  17 | Management  | PM   | Activated | 2020-02-01
+  4 | TOLU  |  25 | Management  | Dev  | Activated | 2020-02-01
+  5 | ROB   |   5 | Engineering | QA   | Activated | 2020-03-01
+  6 | ADE   |  10 | Management  | QA   | Activated | 2020-04-01
+  7 | TOM   |  17 | Security    | QA   | Activated | 2020-05-01
+  8 | Jide  |  26 | Accounting  | Dev  | Activated | 2021-06-01
+(8 rows)
+
+postgres=> UPDATE TeamAmos2021 SET name = 'Timothy' WHERE name = 'tim';
+UPDATE 0
+postgres=> UPDATE TeamAmos2021 SET name = 'TIMOTHY' WHERE name = 'TIM';                         
+UPDATE 1
+postgres=> select * from teamamos2021;
+ id |  name   | age | department  | role |  status   | createed_dt 
+----+---------+-----+-------------+------+-----------+-------------
+  1 | SARAH   |   5 | Accounting  | PM   | Activated | 2020-01-01
+  3 | JOE     |  17 | Management  | PM   | Activated | 2020-02-01
+  4 | TOLU    |  25 | Management  | Dev  | Activated | 2020-02-01
+  5 | ROB     |   5 | Engineering | QA   | Activated | 2020-03-01
+  6 | ADE     |  10 | Management  | QA   | Activated | 2020-04-01
+  7 | TOM     |  17 | Security    | QA   | Activated | 2020-05-01
+  8 | Jide    |  26 | Accounting  | Dev  | Activated | 2021-06-01
+  2 | TIMOTHY |  10 | Engineering | QA   | Activated | 2020-02-01
+(8 rows)
+
+postgres=> SELECT department, COUNT (*) FROM TeamAmos2021 GROUP BY department;
+ department  | count 
+-------------+-------
+ Accounting  |     2
+ Security    |     1
+ Engineering |     2
+ Management  |     3
+(4 rows)
+
+postgres=> 
